@@ -1,5 +1,5 @@
 import express from "express";
-import { Pool } from "pg";
+import pg from "pg";
 import Redis from "ioredis";
 import pino from "pino";
 import pinoHttp from "pino-http";
@@ -7,6 +7,8 @@ import config from "./config.js";
 import { initDb } from "./db/migrations.js";
 import { insertExecution, getExecutions, getStats } from "./db/queries.js";
 import { generateCodeHash, executeCode } from "./utils/codeExecution.js";
+
+const { Pool } = pg;
 
 const logger = pino({
   level: process.env.LOG_LEVEL || "info",
