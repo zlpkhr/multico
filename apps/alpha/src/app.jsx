@@ -20,18 +20,18 @@ function CodeExecutor() {
         fetch("/api/stats"),
         fetch("/api/health"),
       ]);
-      
+
       const [executionsData, statsData, healthData] = await Promise.all([
         executionsRes.json(),
         statsRes.json(),
-        healthRes.json()
+        healthRes.json(),
       ]);
 
       setExecutions(executionsData.executions);
       setStats(statsData.stats);
       setHealth(healthData.status);
     } catch (err) {
-      console.error('Failed to fetch data:', err);
+      console.error("Failed to fetch data:", err);
     }
   };
 
@@ -55,11 +55,11 @@ function CodeExecutor() {
         body: JSON.stringify({ code }),
       });
       const data = await response.json();
-      
+
       if (!response.ok) {
         throw new Error(data.error);
       }
-      
+
       setResult(data);
       // Immediately fetch latest data after execution
       await fetchLatestData();
@@ -74,8 +74,10 @@ function CodeExecutor() {
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>JavaScript Code Executor</h1>
-        <div className={`badge bg-${health === 'healthy' ? 'success' : 'danger'}`}>
-          {health || 'Unknown'}
+        <div
+          className={`badge bg-${health === "healthy" ? "success" : "danger"}`}
+        >
+          {health || "Unknown"}
         </div>
       </div>
 
@@ -94,9 +96,9 @@ function CodeExecutor() {
               <div className="card-body">
                 <h5 className="card-title">Avg Execution Time</h5>
                 <p className="card-text h3">
-                  {stats.avg_execution_time 
+                  {stats.avg_execution_time
                     ? `${parseFloat(stats.avg_execution_time).toFixed(2)}ms`
-                    : 'N/A'}
+                    : "N/A"}
                 </p>
               </div>
             </div>
@@ -108,14 +110,14 @@ function CodeExecutor() {
                 <p className="card-text h3">
                   {stats.total_executions > 0
                     ? `${((parseInt(stats.error_count) / parseInt(stats.total_executions)) * 100).toFixed(1)}%`
-                    : '0.0%'}
+                    : "0.0%"}
                 </p>
               </div>
             </div>
           </div>
         </div>
       )}
-      
+
       <div className="mb-3">
         <textarea
           className="form-control"
@@ -126,7 +128,7 @@ function CodeExecutor() {
         />
       </div>
 
-      <button 
+      <button
         className="btn btn-primary mb-4"
         onClick={executeCode}
         disabled={loading || !code.trim()}
@@ -143,7 +145,8 @@ function CodeExecutor() {
       {result && (
         <div className="card mb-4">
           <div className="card-header">
-            Result {result.cached && <span className="badge bg-info">Cached</span>}
+            Result{" "}
+            {result.cached && <span className="badge bg-info">Cached</span>}
           </div>
           <div className="card-body">
             <pre className="mb-0">{JSON.stringify(result.result, null, 2)}</pre>
@@ -168,7 +171,9 @@ function CodeExecutor() {
               <tr key={execution.id}>
                 <td>{new Date(execution.created_at).toLocaleString()}</td>
                 <td>
-                  <code className="text-break">{execution.code.substring(0, 50)}...</code>
+                  <code className="text-break">
+                    {execution.code.substring(0, 50)}...
+                  </code>
                 </td>
                 <td>
                   <code className="text-break">
@@ -177,8 +182,10 @@ function CodeExecutor() {
                 </td>
                 <td>{execution.execution_time}ms</td>
                 <td>
-                  <span className={`badge bg-${execution.error ? 'danger' : 'success'}`}>
-                    {execution.error ? 'Error' : 'Success'}
+                  <span
+                    className={`badge bg-${execution.error ? "danger" : "success"}`}
+                  >
+                    {execution.error ? "Error" : "Success"}
                   </span>
                 </td>
               </tr>
@@ -193,5 +200,5 @@ function CodeExecutor() {
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <CodeExecutor />
-  </StrictMode>
+  </StrictMode>,
 );
