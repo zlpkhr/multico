@@ -18,4 +18,4 @@ export const initDb = async (pool, logger) => {
   } finally {
     client.release();
   }
-}; 
+};

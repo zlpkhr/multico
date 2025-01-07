@@ -1,11 +1,16 @@
 {
   "type": "module",
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
     "express": "^4.21.2",
     "ioredis": "^5.4.2",
     "pg": "^8.13.1",
     "pino": "^9.6.0",
     "pino-http": "^10.3.0",
     "vm2": "^3.9.19"
+  },
+  "devDependencies": {
+    "sass": "^1.83.1"
   }
 }

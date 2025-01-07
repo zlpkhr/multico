@@ -1,8 +1,17 @@
-export const insertExecution = async (pool, {code, codeHash, result, executionTime, error}) => {
+export const insertExecution = async (
+  pool,
+  { code, codeHash, result, executionTime, error },
+) => {
   return pool.query(
     `INSERT INTO code_executions (code, code_hash, result, execution_time, error) 
      VALUES ($1, $2, $3, $4, $5)`,
-    [code, codeHash, error ? null : JSON.stringify(result), executionTime, error]
+    [
+      code,
+      codeHash,
+      error ? null : JSON.stringify(result),
+      executionTime,
+      error,
+    ],
   );
 };
 
@@ -25,4 +34,4 @@ export const getStats = async (pool) => {
     FROM code_executions
     WHERE created_at > NOW() - INTERVAL '24 HOURS'
   `);
-}; 
+};
