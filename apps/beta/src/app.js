@@ -12,10 +12,6 @@ const { Pool } = pg;
 
 const logger = pino({
   level: process.env.LOG_LEVEL || "info",
-  transport: {
-    target: "pino-pretty",
-    options: { colorize: true },
-  },
 });
 
 const redis = new Redis(config.redis);
